@@ -3,13 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class BomInfo {
-  const BomInfo(this.materialInfo, this.partsInfoList);
-  final List<PartsInfo> partsInfoList;
-  final MaterialInfo materialInfo;
-}
-
-@immutable
 class PartsInfo {
   const PartsInfo(this.materialInfo, this.count, {this.note});
   final MaterialInfo materialInfo;
