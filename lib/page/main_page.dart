@@ -1,3 +1,6 @@
+import 'package:bom/model/bom_info.dart';
+import 'package:bom/model/file_info.dart';
+
 import '../model/material_info.dart';
 import '../model/parts_info.dart';
 import '../widget/parts_card_widget.dart';
@@ -20,35 +23,34 @@ class MainPage extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final topInfo = ref.watch(topInfoProvider);
+    BomInfo bomInfo = SUSHI_INFO;
+    MaterialInfo topInfo = bomInfo.mainInfo;
     return MaterialApp(
         title: 'Flutter test',
         theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-        ),
+            // primarySwatch: Colors.deepPurple,
+            ),
         home: Scaffold(
             body: Column(children: [
           Container(child: MainInfoWidget(topInfo)),
-          Container(
-            child: PartsCard.builder(ref.watch(sushiPartsProvider),
-                ref.watch(sushiPartsProvider.notifier)),
-          ),
-          Container(height: 500, child: const DataTableView())
+          Container(height: 500, child: DataTableView(bomInfo.partsList, []))
         ])));
   }
 }
 
 class DataTableView extends ConsumerWidget {
-  const DataTableView({Key? key}) : super(key: key);
-
-  Widget build_lineup(BuildContext context, WidgetRef ref) {
+  DataTableView(this.partsList, this.fileList, {Key? key}) : super(key: key);
+  List<PartsInfo> partsList;
+  List<FileInfo> fileList;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       return Container(
           // height: 300,
           child: Row(children: [
         Container(
-          child: PartsListWidget(),
+          child: PartsListWidget(partsInfoList: this.partsList),
           width: constraints.maxWidth - 400,
           // height: 300,
         ),
@@ -60,36 +62,4 @@ class DataTableView extends ConsumerWidget {
       ]));
     });
   }
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return build_lineup(context, ref);
-  }
 }
-
-// void main() {
-//   runApp(const ProviderScope(child: MyApp()));
-// }
-
-// class MyApp extends ConsumerWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return MaterialApp(
-//         title: 'Flutter test',
-//         theme: ThemeData(
-//           primarySwatch: Colors.deepPurple,
-//         ),
-//         home: Scaffold(
-//             body: Column(children: [
-//           const DataTableView(),
-//           ElevatedButton(
-//               onPressed: () => ref
-//                   .read(partsInfoProvider.notifier)
-//                   .setPartsInfo(PartsInfo(SUSHI, 1)),
-//               child: const Text("testbutton")),
-//         ])));
-//   }
-// }
