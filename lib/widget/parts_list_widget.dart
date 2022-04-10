@@ -3,17 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers.dart';
 import '../sample_data/sushi.dart';
-// import 'package:flutter/src/material/icon_button.dart';
-// import 'package:flutter/src/material/icons.dart';
 import 'parts_card_widget.dart';
 
 void main() {
-  PartsInfo sampleParts = PartsInfo(SUSHI, 2);
-  runApp(ProviderScope(child: MaterialApp(home: PartsListWidget())));
+  PartsInfo sampleParts = PartsInfo(SUSHI, 1);
+  PartsInfo sampleParts2 = PartsInfo(MAGURO, 2);
+  PartsInfo sampleParts3 = PartsInfo(SHARI, 3);
+  runApp(ProviderScope(
+      child: MaterialApp(
+          home: PartsListWidget(
+    partsInfoList: [sampleParts, sampleParts2, sampleParts3],
+  ))));
 }
 
 class PartsListWidget extends ConsumerWidget {
-  const PartsListWidget({Key? key}) : super(key: key);
+  PartsListWidget({this.partsInfoList = const [], Key? key}) : super(key: key);
+
+  List<PartsInfo> partsInfoList;
+
+  static PartsListWidget builder() {
+    return PartsListWidget();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,9 +36,9 @@ class PartsListWidget extends ConsumerWidget {
         child: Expanded(
             child: ListView.builder(
                 controller: ScrollController(),
-                itemCount: 10,
+                itemCount: partsInfoList.length,
                 itemBuilder: (context, index) =>
-                    PartsCard(PartsInfo(SUSHI, 1), () => null, () => null))));
+                    PartsCard(partsInfoList[index], () => null, () => null))));
   }
 }
 
