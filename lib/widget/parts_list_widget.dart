@@ -33,12 +33,11 @@ class PartsListWidget extends ConsumerWidget {
     // double padding = 25;
     // final sidePadding = EdgeInsets.symmetric(horizontal: padding);
     return Container(
-        child: Expanded(
-            child: ListView.builder(
-                controller: ScrollController(),
-                itemCount: partsInfoList.length,
-                itemBuilder: (context, index) =>
-                    PartsCard(partsInfoList[index], () => null, () => null))));
+        child: ListView.builder(
+            controller: ScrollController(),
+            itemCount: partsInfoList.length,
+            itemBuilder: (context, index) =>
+                PartsCard(partsInfoList[index], () => null, () => null)));
   }
 }
 
