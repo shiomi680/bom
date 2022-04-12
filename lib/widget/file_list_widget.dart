@@ -1,3 +1,5 @@
+import 'package:bom/model/file_info.dart';
+
 import '../model/parts_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +9,8 @@ import 'package:flutter/src/material/icon_button.dart';
 import 'package:flutter/src/material/icons.dart';
 
 void main() {
-  runApp(ProviderScope(child: MaterialApp(home: FileListWidget(["abc"]))));
+  runApp(ProviderScope(
+      child: MaterialApp(home: FileListWidget([FileInfo("path")]))));
 }
 
 class FileTileCard extends ConsumerWidget {
@@ -33,7 +36,7 @@ class FileTileCard extends ConsumerWidget {
 }
 
 class FileListWidget extends ConsumerWidget {
-  final List<String> fileNameList;
+  final List<FileInfo> fileNameList;
   const FileListWidget(this.fileNameList, {Key? key}) : super(key: key);
 
   @override
@@ -43,11 +46,10 @@ class FileListWidget extends ConsumerWidget {
     // double padding = 25;
     // final sidePadding = EdgeInsets.symmetric(horizontal: padding);
     return Container(
-        child: Expanded(
-            child: ListView.builder(
-                controller: ScrollController(),
-                itemCount: fileNameList.length,
-                itemBuilder: (context, index) =>
-                    FileTileCard(fileNameList[index]))));
+        child: ListView.builder(
+            controller: ScrollController(),
+            itemCount: fileNameList.length,
+            itemBuilder: (context, index) =>
+                FileTileCard(fileNameList[index].path)));
   }
 }

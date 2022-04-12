@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+@immutable
 class FileInfo {
-  FileInfo(this.path);
-  String path;
+  const FileInfo(this.path);
+  final String path;
 }
