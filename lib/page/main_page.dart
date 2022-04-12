@@ -33,7 +33,9 @@ class MainPage extends ConsumerWidget {
         home: Scaffold(
             body: Column(children: [
           Container(child: MainInfoWidget(topInfo)),
-          Container(height: 500, child: DataTableView(bomInfo.partsList, []))
+          Container(
+              height: 500,
+              child: DataTableView(bomInfo.partsList, bomInfo.fileInfoList))
         ])));
   }
 }
@@ -55,7 +57,7 @@ class DataTableView extends ConsumerWidget {
           // height: 300,
         ),
         Container(
-          child: FileListWidget(["abc", "test"]),
+          child: FileListWidget(fileList),
           width: 400,
           // height: 300,
         )
